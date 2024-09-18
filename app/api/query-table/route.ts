@@ -8,9 +8,13 @@ export async function POST(request: NextRequest) {
 
   try {
     await client.connect();
-    const query = `SELECT ${fields.join(", ")} FROM ${table} WHERE ${
+
+    // Quote table and field names for case sensitivity
+    const quotedFields = fields.map((field: any) => `"${field}"`);
+    const query = `SELECT ${quotedFields.join(", ")} FROM "${table}" WHERE ${
       conditions || "1=1"
     }`;
+
     const result = await client.query(query);
 
     return NextResponse.json(result.rows);
