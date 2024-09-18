@@ -9,15 +9,41 @@ export async function POST(request: NextRequest) {
   try {
     await client.connect();
 
-    // Quote table and field names for case sensitivity
-    const quotedFields = fields.map((field: any) => `"${field}"`);
-    const query = `SELECT ${quotedFields.join(", ")} FROM "${table}" WHERE ${
-      conditions || "1=1"
-    }`;
+    // If no fields are provided, select all fields
+    const selectedFields =
+      fields && fields.length > 0
+        ? fields.map((field: any) => `"${field}"`).join(", ")
+        : "*";
 
+    // Construct conditions if provided
+    let conditionString = "1=1"; // Default to no condition
+    if (conditions && Object.keys(conditions).length > 0) {
+      conditionString = Object.keys(conditions)
+        .map((key) => `"${key}" = '${conditions[key]}'`)
+        .join(" AND ");
+    }
+
+    // Build and execute the query
+    const query = `SELECT ${selectedFields} FROM "${table}" WHERE ${conditionString}`;
     const result = await client.query(query);
 
-    return NextResponse.json(result.rows);
+    // Dynamically format rows for better readability
+    const formattedRows = result.rows.map((row: any) => {
+      const formattedRow: any = {};
+
+      Object.keys(row).forEach((key) => {
+        const value = row[key];
+        // Truncate long text fields for readability
+        formattedRow[key] =
+          typeof value === "string" && value.length > 100
+            ? value.slice(0, 100) + "..."
+            : value;
+      });
+
+      return formattedRow;
+    });
+
+    return NextResponse.json(formattedRows);
   } catch (error) {
     return NextResponse.json(
       { error: "Error querying table", details: error },
