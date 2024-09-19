@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 This API using Next14 enables me to have a custom GPT in ChatGPT where I can query data from various side project. I can now ask ChatGPT how many users do I have and other SQL queries using natural language.
 
-![Screenshot 2024-09-18 at 9 23 18 PM](https://github.com/user-attachments/assets/99851504-4aa3-4a67-a538-69f5d0baf15e)
+![Screenshot 2024-09-18 at 10 41 29 PM](https://github.com/user-attachments/assets/ab1e1342-828a-485e-a034-ed181520a4d0)
 
 You could extend this API to build a frontend application to manage your side projects.
 
