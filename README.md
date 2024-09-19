@@ -1,8 +1,16 @@
+# Chat with Database - Supabase / Vercel Storage
+Use natural language to retrieve database values realtime and have ChatGPT analyze data from storage options from Supabase or Vercel - KV or Postgres DB. Host your own Next14 Admin API to securely browse your DB through ChatGPT
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) for storing database connection strings for various side projects.
 
 This API using Next14 enables me to have a custom GPT in ChatGPT where I can query data from various side project. I can now ask ChatGPT how many users do I have and other SQL queries using natural language.
 
+![Screenshot 2024-09-18 at 9 23 18 PM](https://github.com/user-attachments/assets/99851504-4aa3-4a67-a538-69f5d0baf15e)
+
 You could extend this API to build a frontend application to manage your side projects.
+
+Get connection string for my project BuyMyRepo, then use it to understand my database. Once understood, show me a table of my users with their app profile details in a nice table.
+
 
 ## Deploy on Vercel
 
