@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { Client } from "pg";
 
 export async function POST(request: NextRequest) {
+  // Check for API key in headers
+  const apiKey = request.headers.get("api-key");
+  if (apiKey !== process.env.API_KEY) {
+    return new NextResponse(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+    });
+  }
+
   const body = await request.json();
   const { connectionString, table, fields, conditions } = body;
   const client = new Client({ connectionString });
